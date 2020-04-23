@@ -5,6 +5,8 @@ const colors = require("colors");
 // Route files
 const bootcampsRoutes = require("./routes/bootcamp");
 const connectToDb = require("./config/database");
+// Custom Middleware
+const errorHandler = require("./middleware/error");
 // Get env variables
 dotenv.config({
   path: "./config/config.env",
@@ -23,6 +25,8 @@ if (process.env.NODE_ENV === "development") {
 
 // Add the routers for all the different endpoints
 app.use("/api/v1/bootcamps", bootcampsRoutes);
+// Custom error handler
+app.use(errorHandler);
 
 // Set the listening port
 const PORT = process.env.PORT || 8080;
@@ -36,3 +40,9 @@ process.on("unhandledRejection", (err, promise) => {
   // Close the server connection
   server.close(() => process.exit(1));
 });
+
+
+/**
+ * NEXT LECTURE
+ * SECTION 5 - LECTURE 5
+*/

@@ -2,15 +2,15 @@ const mongoose = require("mongoose");
 const BootcampSchema = new mongoose.Schema({
 	name: {
 		type: String,
-		required: [true, "The bootcamp must have a name."],
-		unique: true,
+		required: [true, "The bootcamp must have a name "],
+		unique: [true, "A bootcamp with this name already exists"],
 		trim: true,
 		maxlength: [60, "The bootcamp name length can't be more than 60 characters."]
 	},
 	slug: String,
 	description: {
 		type: String,
-		required: [true, "Please add a description for the bootcamp."],
+		required: [true, "Please add a description for the bootcamp "],
 		maxlength: [500, "The description length can't be more than 500 characters."]
 	},
 	website: {
@@ -33,7 +33,7 @@ const BootcampSchema = new mongoose.Schema({
 	},
 	address: {
 		type: String,
-		required: [true, "Please provide an address for the bootcamp"]
+		required: [true, "Please provide an address for the bootcamp "]
 	},
 	/* location: {
 		type: {
