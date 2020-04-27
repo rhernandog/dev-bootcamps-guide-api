@@ -2,21 +2,20 @@ const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
+// Get env variables
+dotenv.config({
+  path: "./config/config.env",
+});
 // Route files
 const bootcampsRoutes = require("./routes/bootcamp");
 const connectToDb = require("./config/database");
 // Custom Middleware
 const errorHandler = require("./middleware/error");
-// Get env variables
-dotenv.config({
-  path: "./config/config.env",
-});
 // Connect to the database
 connectToDb();
 // Create the express instance
 const app = express();
 app.use(express.json());
-
 if (process.env.NODE_ENV === "development") {
   app.use(
     morgan("dev")
@@ -40,9 +39,3 @@ process.on("unhandledRejection", (err, promise) => {
   // Close the server connection
   server.close(() => process.exit(1));
 });
-
-
-/**
- * NEXT LECTURE
- * SECTION 5 - LECTURE 5
-*/
