@@ -1,3 +1,4 @@
+# git fetch --all --prune && git checkout master && git rebase
 node_modules/
 config/config.env
 config.env
