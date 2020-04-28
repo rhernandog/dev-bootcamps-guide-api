@@ -8,13 +8,72 @@ const asyncHandler = require("../middleware/async");
 // @route GET /api/v1/bootcamps
 // @access public
 exports.getBootcamps = asyncHandler(async (req, res, next) => {
-  const allBootcamps = await Bootcamp.find();
+  const queryCopy = { ...req.query };
+  // Specific filter, sort, limit query strings
+  const queryRemoveFields = ["select", "sort", "limit", "page"];
+  queryRemoveFields.forEach(field => delete queryCopy[field]);
+
+  // Create a string of the query to add the $ sign for query operators
+  let parsedQuery = JSON.stringify(queryCopy);
+  // Query operators
+  parsedQuery = parsedQuery.replace(/\b(gt|gte|lt|lte|in)\b/g, match => `$${match}`);
+  parsedQuery = JSON.parse(parsedQuery);
+
+  // Create a Mongo query object
+  let bootcampsQuery = Bootcamp.find(parsedQuery);
+
+  // Select query
+  // Create a string with the select projection in order
+  // to return only those values on each document
+  if (req.query.select) {
+    // Change commas for spaces to comply the mongoose projection form
+    const selectFields = req.query.select.replace(/,/g, " ");
+    bootcampsQuery = bootcampsQuery.select(selectFields);
+  }
+
+  // Sort query
+  if (req.query.sort) {
+    const sortField = req.query.sort.split(",")[0];
+    console.log(req.query.sort, sortField);
+    bootcampsQuery.sort(sortField);
+  } else {
+    bootcampsQuery.sort("-createdAt");
+  }
+
+  // Pagination
+  const page = parseInt(req.query.page, 10) || 1;
+  // Limit
+  const limit = parseInt(req.query.limit, 10) || 20;
+  // Skip, if the page number is more than one skip the first set of
+  // results, that are equal to the previous page times the limit
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+  const totalDocuments = await Bootcamp.countDocuments();
+  bootcampsQuery.skip(startIndex).limit(limit);
+
+  const allBootcamps = await bootcampsQuery;
+
+  const pagination = {
+    prev: null,
+    current: page,
+    next: null,
+  };
+
+  if (endIndex < totalDocuments) {
+    pagination.next = { page: page + 1, limit };
+  }
+  if (startIndex > 0) {
+    pagination.prev = { page: page - 1, limit };
+  }
+
   res.status(200).send({
+    count: allBootcamps.length,
+    pagination,
     success: true,
     data: allBootcamps,
-    count: allBootcamps.length
   });
 });
+
 // Base bootcamps route, get a single bootcamp
 // @route GET /api/v1/bootcamps/:id
 // @access public
