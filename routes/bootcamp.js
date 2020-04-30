@@ -8,7 +8,13 @@ const {
   deleteBootcamp,
   getBootcampsInRadius,
 } = require("../controllers/bootcamps");
+const coursesRouter = require("./course");
+
 const router = express.Router();
+
+// Pass all requests to the courses for a bootcamp id
+// to the courses router
+router.use("/:bootcampId/courses", coursesRouter);
 
 // Get all bootcamps
 router

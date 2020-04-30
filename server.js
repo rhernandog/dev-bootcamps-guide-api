@@ -8,6 +8,8 @@ dotenv.config({
 });
 // Route files
 const bootcampsRoutes = require("./routes/bootcamp");
+const coursesRoutes = require("./routes/course");
+
 const connectToDb = require("./config/database");
 // Custom Middleware
 const errorHandler = require("./middleware/error");
@@ -24,6 +26,7 @@ if (process.env.NODE_ENV === "development") {
 
 // Add the routers for all the different endpoints
 app.use("/api/v1/bootcamps", bootcampsRoutes);
+app.use("/api/v1/courses", coursesRoutes);
 // Custom error handler
 app.use(errorHandler);
 
