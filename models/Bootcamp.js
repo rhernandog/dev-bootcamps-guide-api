@@ -95,6 +95,9 @@ const BootcampSchema = new mongoose.Schema({
 		type: Date,
 		default: Date.now
 	},
+}, {
+	toJSON: { virtuals: true },
+	toObject: { virtuals: true },
 });
 
 // Create an operation before the document is saved in order
@@ -118,6 +121,22 @@ BootcampSchema.pre("save", async function (next) {
 		country: location[0].countryCode,
 	};
 	next();
+});
+
+// Remove all the courses associated with the bootcamp
+// when the bootcamp is removed
+BootcampSchema.pre("remove", async function (next) {
+	await this.model("Course").deleteMany({
+		bootcamp: this._id
+	});
+	next();
+});
+
+BootcampSchema.virtual("courses", {
+	ref: "Course",
+	localField: "_id",
+	foreignField: "bootcamp",
+	justOne: false
 });
 
 module.exports = mongoose.model("Bootcamp", BootcampSchema);

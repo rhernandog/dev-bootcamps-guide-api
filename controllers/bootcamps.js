@@ -20,7 +20,10 @@ exports.getBootcamps = asyncHandler(async (req, res, next) => {
   parsedQuery = JSON.parse(parsedQuery);
 
   // Create a Mongo query object
-  let bootcampsQuery = Bootcamp.find(parsedQuery);
+  let bootcampsQuery = Bootcamp.find(parsedQuery).populate({
+    path: "courses",
+    select: "title"
+  });
 
   // Select query
   // Create a string with the select projection in order
@@ -121,10 +124,12 @@ exports.updateBootcamp = asyncHandler(async (req, res, next) => {
 // @route DELETE /api/v1/bootcamps/:id
 // @access private
 exports.deleteBootcamp = asyncHandler(async (req, res, next) => {
-  const deletedBootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
-  if (!deletedBootcamp) {
+  // const deletedBootcamp = await Bootcamp.findByIdAndDelete(req.params.id);
+  const targetBootcamp = await Bootcamp.findById(req.params.id);
+  if (!targetBootcamp) {
     return next(new ErrorResponse(`Bootcamp not found with id of ${req.params.id}`, 404));
   }
+  targetBootcamp.remove();
   res.status(200).json({
     success: true,
     data: "Bootcamp was deleted."
