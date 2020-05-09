@@ -1,4 +1,5 @@
 const express = require("express");
+const Course = require("../models/Course");
 const {
   getCourses,
   getCourse,
@@ -6,18 +7,25 @@ const {
   updateCourse,
   deleteCourse
 } = require("../controllers/courses");
+const advancedResults = require("../middleware/advancedResults");
 
 const router = express.Router({ mergeParams: true });
 
 router
   .route("/")
-  .get(getCourses)
+  .get(advancedResults(Course, {
+    path: "bootcamp",
+    select: "name description"
+  }), getCourses)
   .post(addCourse);
 
 // Single course routes
 router
   .route("/:id")
-  .get(getCourse)
+  .get(advancedResults({
+    path: "bootcamp",
+    select: "name description"
+  }), getCourse)
   .put(updateCourse)
   .delete(deleteCourse);
 

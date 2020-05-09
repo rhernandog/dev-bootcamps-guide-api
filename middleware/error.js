@@ -2,9 +2,8 @@ const ErrorResponse = require("../utils/ErrorResponse");
 
 const errorHandler = (err, req, res, next) => {
 	let error = { ...err };
-	// Log to console for development purposes
-	// console.log(JSON.stringify(err.errors, null, 2));
-
+	console.log("error middleware");
+	console.log(err);
 	// Mongo bad object ID
 	if (err.name == "CastError") {
 		const message = `Cannot find a Bootcamp with the ID: ${err.value}`;
@@ -26,7 +25,6 @@ const errorHandler = (err, req, res, next) => {
 		const message = `Duplicate field value entered. A bootcamp with a ${errKey}: ${errValue}, already exists.`;
 		error = new ErrorResponse(message, 400);
 	}
-
 	res.status(error.statusCode || 500).json({
 		success: false,
 		error: error.message || "Server Error"

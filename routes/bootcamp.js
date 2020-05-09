@@ -1,5 +1,6 @@
 /* Bootcamps route methods */
 const express = require("express");
+const Bootcamp = require("../models/Bootcamp");
 const {
   getBootcamps,
   getSingleBootcamp,
@@ -7,8 +8,10 @@ const {
   updateBootcamp,
   deleteBootcamp,
   getBootcampsInRadius,
+  bootcambUploadPhoto,
 } = require("../controllers/bootcamps");
 const coursesRouter = require("./course");
+const advancedResults = require("../middleware/advancedResults");
 
 const router = express.Router();
 
@@ -19,7 +22,10 @@ router.use("/:bootcampId/courses", coursesRouter);
 // Get all bootcamps
 router
   .route("/")
-  .get(getBootcamps)
+  .get(advancedResults(Bootcamp, {
+    path: "courses",
+    select: "title"
+  }), getBootcamps)
   .post(createBootcamp);
 // Get a single bootcamp
 router
@@ -27,6 +33,10 @@ router
   .get(getSingleBootcamp)
   .put(updateBootcamp)
   .delete(deleteBootcamp);
+// Photo route
+router
+  .route("/:id/photo")
+  .put(bootcambUploadPhoto);
 
 // Get bootcamps within a radius
 router

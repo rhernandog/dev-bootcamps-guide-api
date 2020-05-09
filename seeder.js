@@ -24,7 +24,7 @@ const coursesData = JSON.parse(fs.readFileSync(__dirname + "/_data/courses.json"
 // Get data to the DB
 const importData = async () => {
   try {
-    await Bootcamp.create(bootcampsData);
+    // await Bootcamp.create(bootcampsData);
     await Course.create(coursesData);
     console.log("Bootcamp, Courses data imported!!!".green.inverse);
     process.exit(0);
@@ -35,7 +35,7 @@ const importData = async () => {
 
 const deleteData = async () => {
   try {
-    await Bootcamp.deleteMany();
+    // await Bootcamp.deleteMany();
     await Course.deleteMany();
     console.log("All bootcamps, courses data deleted!!!".red.inverse);
     process.exit(0);

@@ -2,6 +2,8 @@ const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
+const fileupload = require("express-fileupload");
+const path = require("path");
 // Get env variables
 dotenv.config({
   path: "./config/config.env",
@@ -24,6 +26,10 @@ if (process.env.NODE_ENV === "development") {
   );
 }
 
+// File upload middleware
+app.use(fileupload());
+// Set static folder
+app.use(express.static(path.join(__dirname, "public")));
 // Add the routers for all the different endpoints
 app.use("/api/v1/bootcamps", bootcampsRoutes);
 app.use("/api/v1/courses", coursesRoutes);

@@ -10,29 +10,16 @@ const Bootcamp = require("../models/Bootcamp");
  * @returns {Array} Array with all the courses
 */
 exports.getCourses = asyncHandler(async (req, res, next) => {
-  let coursesQuery;
-
   if (req.params.bootcampId) {
-    coursesQuery = Course.find({
-      bootcamp: req.params.bootcampId
-    }).populate({
-      path: "bootcamp",
-      select: "name description"
+    const courses = await Course.find({ bootcamp: req.params.bootcampId });
+    return res.status(200).json({
+      success: true,
+      count: courses.length,
+      data: courses
     });
   } else {
-    coursesQuery = Course.find().populate({
-      path: "bootcamp",
-      select: "name description"
-    });
+    res.status(200).json(res.advancedResults)
   }
-
-  const courses = await coursesQuery;
-
-  res.status(200).json({
-    success: true,
-    count: courses.length,
-    data: courses
-  });
 });
 
 /** Get Single Course
