@@ -12,6 +12,7 @@ const {
 } = require("../controllers/bootcamps");
 const coursesRouter = require("./course");
 const advancedResults = require("../middleware/advancedResults");
+const { protectRoute, authorize } = require("../middleware/auth");
 
 const router = express.Router();
 
@@ -26,17 +27,17 @@ router
     path: "courses",
     select: "title"
   }), getBootcamps)
-  .post(createBootcamp);
+  .post(protectRoute, authorize("publisher", "admin"), createBootcamp);
 // Get a single bootcamp
 router
   .route("/:id")
   .get(getSingleBootcamp)
-  .put(updateBootcamp)
-  .delete(deleteBootcamp);
+  .put(protectRoute, authorize("publisher", "admin"), updateBootcamp)
+  .delete(protectRoute, authorize("publisher", "admin"), deleteBootcamp);
 // Photo route
 router
   .route("/:id/photo")
-  .put(bootcambUploadPhoto);
+  .put(protectRoute, authorize("publisher", "admin"), bootcambUploadPhoto);
 
 // Get bootcamps within a radius
 router
