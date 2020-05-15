@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config/config.env" });
 const Bootcamp = require("./models/Bootcamp");
 const Course = require("./models/Course");
+const User = require("./models/User");
 
 // Connect to DB
 mongoose.connect(process.env.MONGO_URI, {
@@ -20,13 +21,15 @@ mongoose.connect(process.env.MONGO_URI, {
 // Get data from JSON files
 const bootcampsData = JSON.parse(fs.readFileSync(__dirname + "/_data/bootcamps.json"));
 const coursesData = JSON.parse(fs.readFileSync(__dirname + "/_data/courses.json"));
+const usersData = JSON.parse(fs.readFileSync(__dirname + "/_data/users.json"));
 
 // Get data to the DB
 const importData = async () => {
   try {
     // await Bootcamp.create(bootcampsData);
-    await Course.create(coursesData);
-    console.log("Bootcamp, Courses data imported!!!".green.inverse);
+    // await Course.create(coursesData);
+    await User.create(usersData);
+    console.log("Bootcamp, Courses, Users data imported!!!".green.inverse);
     process.exit(0);
   } catch (err) {
     console.error(err);
@@ -36,8 +39,9 @@ const importData = async () => {
 const deleteData = async () => {
   try {
     // await Bootcamp.deleteMany();
-    await Course.deleteMany();
-    console.log("All bootcamps, courses data deleted!!!".red.inverse);
+    // await Course.deleteMany();
+    await User.deleteMany();
+    console.log("All bootcamps, courses, users data deleted!!!".red.inverse);
     process.exit(0);
   } catch (err) {
     console.error(err);
