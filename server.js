@@ -14,6 +14,7 @@ dotenv.config({
 const bootcampsRoutes = require("./routes/bootcamp");
 const coursesRoutes = require("./routes/course");
 const authRoutes = require("./routes/auth");
+const usersRoutes = require("./routes/users");
 
 const connectToDb = require("./config/database");
 // Custom Middleware
@@ -38,6 +39,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/bootcamps", bootcampsRoutes);
 app.use("/api/v1/courses", coursesRoutes);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/auth/users", usersRoutes);
 // Custom error handler
 app.use(errorHandler);
 

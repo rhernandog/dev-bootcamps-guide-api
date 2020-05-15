@@ -26,7 +26,6 @@ exports.protectRoute = asyncHandler(async (req, res, next) => {
 
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    console.log(decodedToken);
     // Get the user ID from the token, find that user
     // and add it to the request object
     req.user = await User.findById(decodedToken.id);

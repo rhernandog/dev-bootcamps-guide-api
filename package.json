@@ -29,6 +29,7 @@
     "slugify": "^1.4.0"
   },
   "devDependencies": {
+    "nodemailer": "^6.4.6",
     "nodemon": "^2.0.3"
   }
 }

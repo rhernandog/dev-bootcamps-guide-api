@@ -23,7 +23,7 @@ router
 // Single course routes
 router
   .route("/:id")
-  .get(advancedResults({
+  .get(advancedResults(Course, {
     path: "bootcamp",
     select: "name description"
   }), getCourse)
