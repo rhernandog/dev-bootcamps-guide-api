@@ -11,6 +11,7 @@ const {
   bootcambUploadPhoto,
 } = require("../controllers/bootcamps");
 const coursesRouter = require("./course");
+const reviewsRouter = require("./reviewsRoutes");
 const advancedResults = require("../middleware/advancedResults");
 const { protectRoute, authorize } = require("../middleware/auth");
 
@@ -19,6 +20,7 @@ const router = express.Router();
 // Pass all requests to the courses for a bootcamp id
 // to the courses router
 router.use("/:bootcampId/courses", coursesRouter);
+router.use("/:bootcampId/reviews", reviewsRouter);
 
 // Get all bootcamps
 router
