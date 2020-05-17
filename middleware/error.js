@@ -6,7 +6,7 @@ const errorHandler = (err, req, res, next) => {
 	console.log(err);
 	// Mongo bad object ID
 	if (err.name == "CastError") {
-		const message = `Cannot find a Bootcamp with the ID: ${err.value}`;
+		const message = `Cannot find a resource with the ID: ${err.value}`;
 		error = new ErrorResponse(message, 404);
 	}
 
