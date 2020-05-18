@@ -5,6 +5,11 @@ const dotenv = require("dotenv");
 const morgan = require("morgan");
 const colors = require("colors");
 const fileupload = require("express-fileupload");
+const helmet = require("helmet");
+const xss = require("xss-clean");
+const rateLimit = require("express-rate-limit");
+const hpp = require("hpp");
+const cors = require("cors");
 
 // Get env variables
 dotenv.config({
@@ -29,6 +34,21 @@ app.use(express.json());
 app.use(fileupload());
 // Cookie parser
 app.use(cookieParser());
+// Security Header
+app.use(helmet());
+// Clean req.body XSS(Cross Site Scripting)
+app.use(xss());
+// Request rate limit
+const limiter = rateLimit({
+  windowMs: 600000, // 10 minutes
+  max: 100
+});
+app.use(limiter);
+// Prevent Param Pollution Attack
+app.use(hpp());
+// Allow Cross Origin request if API is public
+app.use(cors());
+
 if (process.env.NODE_ENV === "development") {
   app.use(
     morgan("dev")
