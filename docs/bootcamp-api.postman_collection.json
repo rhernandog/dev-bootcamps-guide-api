@@ -1,0 +1,1152 @@
+{
+	"info": {
+		"_postman_id": "2214787b-d791-4fee-b8e8-4189cef0e5b8",
+		"name": "BootCamp API",
+		"description": "Backend API for the BootCamp application for displaying bootcamps courses information, their reviews, users and authentication.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Bootcamps",
+			"item": [
+				{
+					"name": "GET All bootcamps",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/?select=name,user",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								""
+							],
+							"query": [
+								{
+									"key": "select",
+									"value": "name,user"
+								}
+							]
+						},
+						"description": "Uses a GET request to the base bootcamps route `/api/v1/bootcamps/` to fetch all the bootcamps."
+					},
+					"response": []
+				},
+				{
+					"name": "GET Single bootcamp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5ea0797a463c4e1824f24c6b",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5ea0797a463c4e1824f24c6b"
+							]
+						},
+						"description": "Uses a GET request to fetch a single bootcamp information by it's id, using the route `/api/v1/bootcamps/:id`"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Single bootcamp",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"_id\": \"5d725a037b292f5f8ceff123\",\n    \"user\": \"5c8a1d5b0190b214360dc031\",\n    \"name\": \"TEST BOOTCAMP\",\n    \"description\": \"Dummy description text.\",\n    \"website\": \"https://codemasters.com\",\n    \"phone\": \"(333) 333-3333\",\n    \"email\": \"enroll@codemasters.com\",\n    \"address\": \"85 South Prospect Street Burlington VT 05405\",\n    \"careers\": [\n      \"Web Development\",\n      \"Data Science\",\n      \"Business\"\n    ],\n    \"housing\": false,\n    \"jobAssistance\": false,\n    \"jobGuarantee\": false,\n    \"acceptGi\": false,\n    \"averageCost\": 8000\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								""
+							]
+						},
+						"description": "Creates a single bootcamp using a POST request using the route `/api/v1/bootcamps/`. The user must be authenticated and have the necessary role in order to complete the operation."
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Single bootcamp",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"housing\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5ea07dbd6f37db2f58f6ae5a",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5ea07dbd6f37db2f58f6ae5a"
+							]
+						},
+						"description": "Updates a single bootcamp information by it's ID using the route `/api/v1/bootcamps/:id`. The user must be authenticated and have the necessary role in order to complete the operation."
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Upload Bootcamp Photo",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/C:/Users/rhern/Desktop/new zeland.jpg"
+								},
+								{
+									"key": "",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d725a037b292f5f8ceff123/photo",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d725a037b292f5f8ceff123",
+								"photo"
+							]
+						},
+						"description": "PUT request to upload a photo for a specific bootcamp, indicated by the id in the request url: `/api/v1/bootcamps/:id/photo/`"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Delete Single bootcamp",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d725a037b292f5f8ceff123",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d725a037b292f5f8ceff123"
+							]
+						},
+						"description": "Deletes a single bootcamp by it's ID using the route `/api/v1/bootcamps/:id`. The user must be authenticated and have the necessary role in order to complete the operation."
+					},
+					"response": []
+				},
+				{
+					"name": "GET Bootcamps in radius",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/radius/02215/30",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"radius",
+								"02215",
+								"30"
+							]
+						},
+						"description": "Gets the bootcamps from within the radius of a given ZIP code pass to the request, following this pattern: `/api/v1/bootcamps/radius/:zipcode/:distance`."
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD Operations for the bootcamps route",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "GET All Courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/courses/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								""
+							]
+						},
+						"description": "Gets all the courses from the collection."
+					},
+					"response": []
+				},
+				{
+					"name": "GET All Courses From a Bootcamp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d713995b721c3bb38c1f5d0/courses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d713995b721c3bb38c1f5d0",
+								"courses"
+							]
+						},
+						"description": "Gets all the courses of a specific bootcamp, based on the bootcamp ID passed in the url: `/api/v1/bootcamps/:bootcampId/courses`"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Single Course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/courses/5ebaebc41126c309b0872b85",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								"5ebaebc41126c309b0872b85"
+							]
+						},
+						"description": "Returns a single course with the corresponding bootcamp information (name and description), based on the ID passed to the url: `/api/v1/courses/:id`"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Add a Single Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"My Test Course - part one\",\n    \"description\": \"This is the first part of the test course in the dummy bootcamp.\",\n    \"weeks\": 4,\n    \"tuition\": 8000,\n    \"minimumSkill\": \"beginner\",\n    \"scholarshipsAvailable\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d725a037b292f5f8ceff123/courses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d725a037b292f5f8ceff123",
+								"courses"
+							]
+						},
+						"description": "Creates a new course for a specific bootcamp, using the bootcamp ID from the request parameters: `/api/v1/bootcamps/:bootcampId/courses/`"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Updates a Single Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"weeks\": 8\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/courses/5ebaebc41126c309b0872b85",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								"5ebaebc41126c309b0872b85"
+							]
+						},
+						"description": "Gets a single course from the DB and updates it with the JSON formatted data passed in the body. Uses the course ID to get the target course: `/api/v1/courses/:id`"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Deletes a Single Course",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/courses/5eab08acdabeb6091ca95264",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								"5eab08acdabeb6091ca95264"
+							]
+						},
+						"description": "Deletes a single course from the DB using the ID passed in the request URL: `/api/v1/courses/:id`"
+					},
+					"response": []
+				}
+			],
+			"description": "Requests for the courses routes",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "POST Register User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "0c1bac50-77bf-40b5-8f34-ee8bea41760a",
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Homer Jay\",\n\t\"email\": \"homer@simpsons.com\",\n\t\"password\": \"evilhomer\",\n\t\"role\": \"publisher\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "Registers a new user in the database using the route `/api/v1/auth/register`"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "76e8d5ef-24e2-4014-8802-8880fbd22750",
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"admin@gmail.com\",\n\t\"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Route to handle a user login. Takes the email and password from the user in the request body. Route: `/api/v1/auth/login`"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Get Current Logged In User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/me",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"me"
+							]
+						},
+						"description": "Get the current logged in user by passing the current session token. Route: `/api/v1/auth/me`"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Forgot Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b6dbe5aa-1d43-48c1-836f-130416f41f5c",
+								"exec": [
+									"pm.environment.set(\"TOKEN\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\": \"mary@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/forgotpassword",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"forgotpassword"
+							]
+						},
+						"description": "Generates reset password token and expiration date. Route: `/api/v1/auth/forgotpassword`"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Reset Password",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/resetpassword/b6f8746d6efa29d96f0d24aa227066956bc9c3a7",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"resetpassword",
+								"b6f8746d6efa29d96f0d24aa227066956bc9c3a7"
+							]
+						},
+						"description": "Route to reset the user's password.\r\nMethod: PUT\r\nRoute: `/api/v1/auth/resetpassword/:resettoken`"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update User Details",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Mary Williams\",\n\t\"newPassword\": \"mary@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/updatedetails",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"updatedetails"
+							]
+						},
+						"description": "Updates the user details, only name and email. Both elements, even if one is not changed, should be passed in the request body.\r\nMethod: PUT\r\nRoute: `/api/v1/auth/updatedetails`"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update User Password",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"password\": \"456789\",\n\t\"newPassword\": \"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/updatepassword",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"updatepassword"
+							]
+						},
+						"description": "Updates the user password.\r\nMethod: PUT\r\nRoute: `/api/v1/auth/updatepassword`"
+					},
+					"response": []
+				}
+			],
+			"description": "Routes for user authentication, includes regster, login, reset password, etc.",
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "GET Get All Users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users"
+							]
+						},
+						"description": "Returns all the users from the database.\r\nMethod: GET\r\nRoute: `/api/v1/auth/users/`"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Get Single User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/users/5ebb851f296a402cf005eec6",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users",
+								"5ebb851f296a402cf005eec6"
+							]
+						},
+						"description": "Returns a single user from the database, using the user ID passed in the request parameters.\r\nMethod: GET\r\nRoute: `/api/v1/auth/users/:id`"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Create Single User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Homer Jay\",\n\t\"email\": \"homer@simpsons.com\",\n\t\"password\": \"evilhomer\",\n\t\"role\": \"publisher\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users"
+							]
+						},
+						"description": "Creates a single user in the database. The returned value is the created user object.\r\nMethod: POST\r\nRoute: `/api/v1/auth/users`"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Updates an Existing User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Homer Simpson\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/users/5ebb851f296a402cf005eec6",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users",
+								"5ebb851f296a402cf005eec6"
+							]
+						},
+						"description": "Updates an existing user in the database, based on the id passed in the request parameters. The update is made based on the values passed in the request body.\r\nMethod: PUT\r\nRoute: `/api/v1/auth/users/:id`"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Delete Single User",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/users/5ebb851f296a402cf005eec6",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"users",
+								"5ebb851f296a402cf005eec6"
+							]
+						},
+						"description": "Removes a user from the database, using the ID passed in the request parameters.\r\nMethod: DELETE\r\nRoute: `/api/v1/auth/users/:id`"
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD functionality for users. This are available only for the admin user.",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e6c9546c-8551-4744-8330-a0e8b9b08ae8",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "deff5858-ab04-46d1-b285-40b651d4e2cc",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "GET Get All Reviews",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews"
+							]
+						},
+						"description": "Get all the reviews from the database.\r\nMethod: GET\r\nRoute: /api/v1/reviews"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Get Single Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/reviews/5d7a514b5d2c12c7449be021",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"5d7a514b5d2c12c7449be021"
+							]
+						},
+						"description": "Get a single review from the database based on the id parameter passed in the request URL\r\nMethod: GET\r\nRoute: /api/v1/reviews/:reviewId"
+					},
+					"response": []
+				},
+				{
+					"name": "GET Get Reviews of Single Bootcamp",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"My First Review\",\n\t\"text\": \"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias laborum nihil iure veniam at veritatis velit porro eligendi dolorem, impedit neque perspiciatis voluptates, deserunt facilis.\",\n\t\"rating\": 8\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d725a1b7b292f5f8ceff788/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d725a1b7b292f5f8ceff788",
+								"reviews"
+							]
+						},
+						"description": "Returns all the reviews of a single bootcamp, based on the bootcamp ID passed in the request params.\r\nMethod: GET\r\nRoute: /api/v1/bootcamps/:bootcampId/reviews"
+					},
+					"response": []
+				},
+				{
+					"name": "POST Add Bootcamp Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"My First Review\",\n\t\"text\": \"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias laborum nihil iure veniam at veritatis velit porro eligendi dolorem, impedit neque perspiciatis voluptates, deserunt facilis.\",\n\t\"rating\": 6\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d725a037b292f5f8ceff787/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d725a037b292f5f8ceff787",
+								"reviews"
+							]
+						},
+						"description": "Adds a review for a specific bootcamp indicated in the request params bootcamp id.\r\nMethod: GET\r\nRoute: /api/v1/bootcamps/:bootcampId/reviews"
+					},
+					"response": []
+				},
+				{
+					"name": "PUT Update Bootcamp Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"rating\": 9\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/reviews/5ec0e0ed34f7e90b2453cd52",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"5ec0e0ed34f7e90b2453cd52"
+							]
+						},
+						"description": "Updates a specific review based on the ID passed in the request params.\r\nMethod: PUT\r\nRoute: `/api/v1/reviews/:reviewId`"
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE Delete Bootcamp Review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/reviews/5ec0e0ed34f7e90b2453cd52",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"5ec0e0ed34f7e90b2453cd52"
+							]
+						},
+						"description": "Deletes a review from the database, using the ID provided in the request params.\r\nMethod: DELETE\r\nRoute: `/api/v1/reviews/:reviewId`"
+					},
+					"response": []
+				}
+			],
+			"description": "Manage courses reviews",
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
